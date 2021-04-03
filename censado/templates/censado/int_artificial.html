@@ -1,0 +1,49 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <div>
+        <h2>Inteligencia Artificial</h2>
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+        <table class="table table-striped table-hover table-bordered table-sm">
+            <thead align="center">
+                <tr>
+                    <th>ID</th>
+                    <th>Temp. LM35</th>
+                    <th>Temp. DS18B20</th>
+                    <th>Hum. HL-69</th>
+                    <th>Status Riego</th>
+                    <th>Hora</th>
+                    <th>Anomalía</th>
+                </tr>
+            </thead>
+            {% for cens in censo %}
+            
+            {% if cens.anomalia == 2 %}
+                <tr class="table-danger" align="center">
+            {% else %}
+                <tr align="center">
+            {% endif %}
+                <td>{{ cens.id }}</td>
+                <td>{{ cens.temperatura_LM35 }}</td>
+                <td>{{ cens.temperatura_DS18B20 }}</td>
+                <td>{{ cens.humedad_HL69 }}</td>
+                {% if cens.status_riego == 1 %}
+                    <td>Inactivo</td>
+                {% else %}
+                    <td>Activo</td>
+                {% endif %}
+                <td>{{ cens.hora }}:00</td>
+                {% if cens.anomalia == 1 %}
+                    <td>No</td>
+                {% else %}
+                    <td>Sí</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}
